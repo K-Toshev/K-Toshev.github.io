@@ -95,7 +95,7 @@ function findMatchingStudents(selectedCourses, currentUserData) {
     matchedUsers.sort((a, b) => b.totalScore - a.totalScore);
 
     // Display results
-    displayResults(matchedUsers, selectedCourses);
+    displayResults(matchedUsers, selectedCourses, currentUserData.schedule);
 }
 
 function calculateScheduleMatch(schedule1, schedule2) {
@@ -111,7 +111,7 @@ function calculateScheduleMatch(schedule1, schedule2) {
     return score;
 }
 
-function displayResults(users, selectedCourses) {
+function displayResults(users, selectedCourses, yourSchedule) {
     const resultsContainer = document.getElementById('resultsContainer');
     
     if (users.length === 0) {
@@ -142,8 +142,31 @@ function displayResults(users, selectedCourses) {
                         <strong>Shared courses:</strong>
                         ${user.courses.filter(c => selectedCourses.includes(c)).join(', ')}
                     </div>
+                    <div class="availability-preview">
+                        ${getAvailabilityPreview(yourSchedule, user.schedule)}
+                    </div>
                 </div>
             `).join('')}
+        </div>
+    `;
+}
+
+function getAvailabilityPreview(yourSchedule, theirSchedule) {
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+    let sharedCount = 0;
+    let theirCount = 0;
+    
+    days.forEach(day => {
+        const yourHours = yourSchedule[day] || [];
+        const theirHours = theirSchedule[day] || [];
+        sharedCount += yourHours.filter(h => theirHours.includes(h)).length;
+        theirCount += theirHours.filter(h => !yourHours.includes(h)).length;
+    });
+    
+    return `
+        <div class="availability-summary">
+            <span class="shared-hours">${sharedCount} shared hours</span>
+            <span class="their-hours">${theirCount} their available hours</span>
         </div>
     `;
 }

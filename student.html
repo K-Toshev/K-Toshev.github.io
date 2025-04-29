@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Student Profile</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <header>
         <h1>Student Profile</h1>
         <nav>
-            <a href="home.html">Home</a>
-            <a href="search.html">Back to Search</a>
+            <a href="./home.html">Home</a>
+            <a href="./search.html">Back to Search</a>
         </nav>
     </header>
     <main>
-        <div id="profileContainer"></div>
+        <div id="profileContainer" class="public-profile"></div>
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -22,7 +22,7 @@
             const netid = urlParams.get('netid');
             
             if (!netid) {
-                window.location.href = 'search.html';
+                window.location.href = './search.html';
                 return;
             }
             
@@ -33,33 +33,81 @@
             }
             
             document.getElementById('profileContainer').innerHTML = `
-                <div class="public-profile">
-                    <h2>${userData.netid}</h2>
-                    
-                    <section>
-                        <h3>Courses</h3>
-                        <ul>
-                            ${userData.courses.map(c => `<li>${c}</li>`).join('')}
-                        </ul>
-                    </section>
-                    
-                    <section>
-                        <h3>Availability</h3>
-                        <div class="schedule-grid">
-                            ${Object.entries(userData.schedule || {})
-                                .filter(([day, hours]) => hours.length)
-                                .map(([day, hours]) => `
-                                    <div class="schedule-day">
-                                        <h4>${day}</h4>
-                                        <p>${hours.map(h => 
-                                            `${h}:00-${h+1}:00`).join(', ')}</p>
-                                    </div>
-                                `).join('')}
+                <h2>${userData.netid}</h2>
+                
+                <section>
+                    <h3>Courses</h3>
+                    <ul class="course-list">
+                        ${userData.courses.map(c => `<li>${c}</li>`).join('')}
+                    </ul>
+                </section>
+                
+                <section>
+                    <h3>Shared Availability</h3>
+                    <div class="comparison-calendar">
+                        <div class="calendar-legend">
+                            <div class="legend-item">
+                                <div class="legend-color both-available"></div>
+                                <span>Both available</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color them-available"></div>
+                                <span>Only they're available</span>
+                            </div>
                         </div>
-                    </section>
-                </div>
+                        <div id="comparisonCalendar"></div>
+                    </div>
+                </section>
             `;
+
+            // Load current user's schedule
+            const currentUser = sessionStorage.getItem('currentUser');
+            const currentUserData = JSON.parse(localStorage.getItem(currentUser));
+            
+            // Display comparison calendar
+            if (currentUserData?.schedule && userData?.schedule) {
+                renderComparisonCalendar(currentUserData.schedule, userData.schedule);
+            }
         });
+
+        function renderComparisonCalendar(yourSchedule, theirSchedule) {
+            const calendar = document.getElementById('comparisonCalendar');
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            const hours = Array.from({length: 12}, (_, i) => i + 8); // 8AM to 7PM
+
+            // Create header
+            const headerRow = document.createElement('div');
+            headerRow.className = 'calendar-row header';
+            headerRow.innerHTML = '<div class="time-col"></div>' + 
+                days.map(day => `<div class="day-col">${day.substring(0, 3)}</div>`).join('');
+            calendar.appendChild(headerRow);
+
+            // Create time slots
+            hours.forEach(hour => {
+                const row = document.createElement('div');
+                row.className = 'calendar-row';
+                row.innerHTML = `<div class="time-col">${hour <= 12 ? hour : hour-12}${hour < 12 ? 'AM' : 'PM'}</div>`;
+                
+                days.forEach(day => {
+                    const cell = document.createElement('div');
+                    cell.className = 'day-col time-slot';
+                    
+                    // Determine availability
+                    const youAvailable = yourSchedule[day]?.includes(hour) || false;
+                    const theyAvailable = theirSchedule[day]?.includes(hour) || false;
+                    
+                    if (youAvailable && theyAvailable) {
+                        cell.classList.add('both-available');
+                    } else if (theyAvailable) {
+                        cell.classList.add('them-available');
+                    }
+                    
+                    row.appendChild(cell);
+                });
+                
+                calendar.appendChild(row);
+            });
+        }
     </script>
 </body>
 </html>

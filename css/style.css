@@ -332,3 +332,132 @@ button:hover {
 .no-courses-warning a:hover {
     text-decoration: underline;
 }
+
+/* Comparison Calendar Styles */
+.comparison-calendar {
+    margin-top: 1.5rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.calendar-legend {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.both-available {
+    background-color: #4CAF50; /* Green */
+    border: 2px solid #388E3C;
+}
+
+.them-available {
+    background-color: #F44336; /* Red */
+    border: 2px solid #D32F2F;
+}
+
+/* Calendar Cells */
+.time-slot {
+    height: 30px;
+    margin: 2px;
+    background-color: #f5f5f5;
+}
+
+.time-slot.both-available {
+    background-color: #C8E6C9; /* Light green */
+    border: 1px solid #81C784;
+}
+
+.time-slot.them-available {
+    background-color: #FFCDD2; /* Light red */
+    border: 1px solid #E57373;
+}
+
+/* Compact calendar styling */
+.comparison-calendar .calendar-row .day-col {
+    padding: 0.2rem;
+    font-size: 0.8rem;
+}
+
+.comparison-calendar .time-col {
+    width: 50px;
+    font-size: 0.8rem;
+}
+
+/* Availability Preview in Search Results */
+.availability-preview {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.availability-summary {
+    display: flex;
+    gap: 1rem;
+}
+
+.shared-hours::before {
+    content: "•";
+    color: #4CAF50;
+    margin-right: 0.3rem;
+}
+
+.their-hours::before {
+    content: "•";
+    color: #F44336;
+    margin-right: 0.3rem;
+}
+
+/* Course List Styles */
+.course-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.course-list li {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.course-list li:last-child {
+    border-bottom: none;
+}
+
+/* Warning Messages */
+.no-courses-warning, .no-results {
+    background: #fff8e1;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.no-courses-warning a {
+    color: #4b2e83;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.no-courses-warning a:hover {
+    text-decoration: underline;
+}
