@@ -1,2 +1,1 @@
-# SWECC Hackathon 2025:
-# UW Language Exchange Network
+# SWECC Hackathon 2025: UW Language Exchange Network
