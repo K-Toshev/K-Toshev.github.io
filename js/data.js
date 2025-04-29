@@ -41,7 +41,6 @@ const demoStudents = {
     }
 };
 
-// Store demo data
 Object.keys(demoStudents).forEach(netid => {
     localStorage.setItem(netid, JSON.stringify(demoStudents[netid]));
 });
