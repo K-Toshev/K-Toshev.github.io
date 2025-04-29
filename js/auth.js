@@ -1,22 +1,31 @@
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const netid = document.getElementById('netid').value.trim();
-    if (!netid) {
-        alert("Please enter a NetID");
+document.addEventListener('DOMContentLoaded', function () {
+    const loginForm = document.getElementById('loginForm');
+
+    if (!loginForm) {
+        console.error("Login form not found!");
         return;
     }
 
-    // Create new user if doesn't exist
-    if (!localStorage.getItem(netid)) {
-        localStorage.setItem(netid, JSON.stringify({
-            netid: netid,
-            courses: [],
-            schedule: {}
-        }));
-    }
+    loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const netid = document.getElementById('netid').value.trim();
 
-    // Set active session
-    sessionStorage.setItem('currentUser', netid);
-    window.location.href = 'home.html';
+        if (!netid) {
+            alert("Please enter a NetID");
+            return;
+        }
+
+        // Initialize user if new
+        if (!localStorage.getItem(netid)) {
+            localStorage.setItem(netid, JSON.stringify({
+                netid: netid,
+                courses: [],
+                schedule: {}
+            }));
+        }
+
+        // Set session and redirect
+        sessionStorage.setItem('currentUser', netid);
+        window.location.href = './home.html';
+    });
 });
