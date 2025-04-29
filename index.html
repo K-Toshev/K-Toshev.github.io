@@ -1,35 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UW Study Network - Login</title>
     <link rel="stylesheet" href="css/style.css">
-    <script>
-        // Clear any existing session when loading login page
-        sessionStorage.removeItem('currentUser');
-    </script>
-    <script src="js/firebase-config.js"></script>
 </head>
-
 <body>
     <div class="login-container">
         <h1>UW Study Network</h1>
         <form id="loginForm">
             <div class="form-group">
                 <label for="netid">UW NetID</label>
-                <input type="text" id="netid" placeholder="Enter your NetID" required>
+                <input type="text" id="netid" placeholder="e.g., jsmith" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+                <input type="password" id="password" placeholder="(any password works)" required>
             </div>
             <button type="submit">Log In</button>
         </form>
-        <p class="demo-note">Note: This is a demo. Any NetID/password will work.</p>
+        <p class="demo-note">Demo: Try logging in as jsmith, mjohnson, etc.</p>
     </div>
+    <script src="js/data.js"></script>
     <script src="js/auth.js"></script>
 </body>
-
 </html>

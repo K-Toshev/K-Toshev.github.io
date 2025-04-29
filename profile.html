@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>My Profile</title>
     <link rel="stylesheet" href="css/style.css">
-    <script>
-        // Check if user is logged in
-        if (!sessionStorage.getItem('currentUser')) {
-            window.location.href = 'index.html';
-        }
-    </script>
 </head>
-
 <body>
     <header>
         <h1>My Profile</h1>
@@ -25,10 +17,10 @@
         <section>
             <h2>My Courses</h2>
             <div id="courseInput">
-                <input type="text" id="newCourse" placeholder="e.g., CSE 154" autocomplete="off">
+                <input type="text" id="newCourse" placeholder="e.g., CSE 154">
                 <button id="addCourse">Add Course</button>
             </div>
-            <ul id="courseList" class="course-list"></ul>
+            <ul id="courseList"></ul>
         </section>
         <section>
             <h2>My Availability</h2>
@@ -39,5 +31,4 @@
     <script src="js/profile.js"></script>
     <script src="js/calendar.js"></script>
 </body>
-
 </html>

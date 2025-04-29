@@ -1,24 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>UW Study Network - Home</title>
     <link rel="stylesheet" href="css/style.css">
-    <script>
-        // Check if user is logged in
-        if (!sessionStorage.getItem('currentUser')) {
-            window.location.href = 'index.html';
-        }
-    </script>
 </head>
-
 <body>
     <header>
         <h1>UW Study Network</h1>
         <div class="user-controls">
             <span id="userWelcome"></span>
-            <button id="logoutButton" onclick="logout()">Log Out</button>
+            <button id="logoutButton">Log Out</button>
         </div>
     </header>
     <main class="dashboard">
@@ -31,16 +23,17 @@
             <p>Search for classmates with matching schedules</p>
         </div>
     </main>
-    <script src="js/auth.js"></script>
     <script>
         // Display current user
-        document.getElementById('userWelcome').textContent =
-            `Welcome, ${sessionStorage.getItem('currentUser') || 'User'}!`;
-        // Simple check to prevent access when not logged in
-        if (!sessionStorage.getItem('currentUser')) {
+        const currentUser = sessionStorage.getItem('currentUser');
+        if (!currentUser) window.location.href = 'index.html';
+        document.getElementById('userWelcome').textContent = `Welcome, ${currentUser}!`;
+        
+        // Logout functionality
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            sessionStorage.removeItem('currentUser');
             window.location.href = 'index.html';
-        }
+        });
     </script>
 </body>
-
 </html>

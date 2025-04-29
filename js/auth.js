@@ -1,22 +1,22 @@
-// Simulate UW NetID login (replace localStorage with Firebase Auth)
-function handleLogin(netId, password) {
-    // For demo, we'll use Firebase Email/Password Auth
-    auth.signInWithEmailAndPassword(`${netId}@uw.edu`, password)
-        .then((userCredential) => {
-            sessionStorage.setItem('currentUser', netId);
-            window.location.href = 'home.html';
-        })
-        .catch((error) => {
-            alert("Login failed. Using demo mode.");
-            // Fallback to localStorage if Firebase fails
-            sessionStorage.setItem('currentUser', netId);
-            window.location.href = 'home.html';
-        });
-}
-
-document.getElementById('loginForm').addEventListener('submit', (e) => {
+document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    const netId = document.getElementById('netid').value;
-    const password = document.getElementById('password').value;
-    handleLogin(netId, password);
+    
+    const netid = document.getElementById('netid').value.trim();
+    if (!netid) {
+        alert("Please enter a NetID");
+        return;
+    }
+
+    // Create new user if doesn't exist
+    if (!localStorage.getItem(netid)) {
+        localStorage.setItem(netid, JSON.stringify({
+            netid: netid,
+            courses: [],
+            schedule: {}
+        }));
+    }
+
+    // Set active session
+    sessionStorage.setItem('currentUser', netid);
+    window.location.href = 'home.html';
 });

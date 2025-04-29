@@ -1,46 +1,41 @@
-// Save profile to Firestore
-async function saveProfile(userId, profileData) {
-    try {
-      await db.collection("users").doc(userId).set(profileData);
-      console.log("Profile saved to Firestore!");
-    } catch (error) {
-      console.error("Firestore error:", error);
-      // Fallback to localStorage
-      localStorage.setItem(userId, JSON.stringify(profileData));
-    }
-  }
-  
-  // Load profile from Firestore
-  async function loadProfile(userId) {
-    try {
-      const doc = await db.collection("users").doc(userId).get();
-      return doc.exists ? doc.data() : null;
-    } catch (error) {
-      console.error("Firestore error:", error);
-      // Fallback to localStorage
-      return JSON.parse(localStorage.getItem(userId));
-    }
-  }
-  
-  // Example usage in profile.js
-  document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', function() {
     const currentUser = sessionStorage.getItem('currentUser');
     if (!currentUser) window.location.href = 'index.html';
-  
-    // Load existing profile
-    const userData = await loadProfile(currentUser) || {
-      netid: currentUser,
-      courses: [],
-      schedule: {}
-    };
-  
-    // Save when adding a course
-    document.getElementById('addCourse').addEventListener('click', async () => {
-      const course = document.getElementById('newCourse').value.trim();
-      if (course && !userData.courses.includes(course)) {
-        userData.courses.push(course);
-        await saveProfile(currentUser, userData);
-        renderCourses(); // Update UI
-      }
+    
+    let userData = JSON.parse(localStorage.getItem(currentUser));
+    
+    // Course Management
+    const courseList = document.getElementById('courseList');
+    function renderCourses() {
+        courseList.innerHTML = '';
+        userData.courses.forEach(course => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                ${course}
+                <button class="delete-btn" data-course="${course}">×</button>
+            `;
+            courseList.appendChild(li);
+        });
+        
+        // Add delete handlers
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                userData.courses = userData.courses.filter(c => c !== this.dataset.course);
+                localStorage.setItem(currentUser, JSON.stringify(userData));
+                renderCourses();
+            });
+        });
+    }
+    
+    document.getElementById('addCourse').addEventListener('click', function() {
+        const course = document.getElementById('newCourse').value.trim();
+        if (course && !userData.courses.includes(course)) {
+            userData.courses.push(course);
+            localStorage.setItem(currentUser, JSON.stringify(userData));
+            renderCourses();
+            document.getElementById('newCourse').value = '';
+        }
     });
-  });
+    
+    renderCourses();
+});

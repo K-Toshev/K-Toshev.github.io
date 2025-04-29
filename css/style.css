@@ -192,34 +192,7 @@ button:hover {
     border-radius: 4px;
 }
 
-/* Add to style.css */
-.user-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-#userWelcome {
-    color: white;
-    font-weight: bold;
-}
-
-#logoutButton {
-    background-color: #b7a57a; /* UW Gold */
-    color: #4b2e83; /* UW Purple */
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
-}
-
-#logoutButton:hover {
-    background-color: #d4c29e;
-}
-
-/* Course List Styles */
+/* Course List */
 .course-list {
     list-style: none;
     padding: 0;
@@ -242,7 +215,7 @@ button:hover {
     border-bottom: none;
 }
 
-.delete-course {
+.delete-btn {
     background: none;
     border: none;
     color: #ff4444;
@@ -251,17 +224,32 @@ button:hover {
     padding: 0 0.5rem;
 }
 
-.delete-course:hover {
+.delete-btn:hover {
     color: #cc0000;
 }
 
-#courseInput {
+/* User Controls */
+.user-controls {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    align-items: center;
+    gap: 1rem;
 }
 
-#newCourse {
-    flex-grow: 1;
-    padding: 0.5rem;
+#userWelcome {
+    color: white;
+    font-weight: bold;
+}
+
+#logoutButton {
+    background-color: #b7a57a; /* UW Gold */
+    color: #4b2e83; /* UW Purple */
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+#logoutButton:hover {
+    background-color: #d4c29e;
 }

@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const currentUser = sessionStorage.getItem('currentUser');
+    const userData = JSON.parse(localStorage.getItem(currentUser));
+    
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const hours = Array.from({length: 14}, (_, i) => i + 8); // 8AM to 9PM
+    const hours = Array.from({length: 12}, (_, i) => i + 8); // 8AM to 7PM
     
     const calendar = document.getElementById('calendar');
     calendar.innerHTML = '';
@@ -23,6 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
             cell.className = 'day-col time-slot';
             cell.dataset.day = day;
             cell.dataset.hour = hour;
+            
+            // Mark as selected if in schedule
+            if (userData.schedule[day]?.includes(hour)) {
+                cell.classList.add('selected');
+            }
+            
             cell.addEventListener('click', function() {
                 this.classList.toggle('selected');
             });
@@ -46,11 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        const currentUser = sessionStorage.getItem('currentUser');
-        let userData = JSON.parse(localStorage.getItem(currentUser)) || {netid: currentUser};
         userData.schedule = schedule;
         localStorage.setItem(currentUser, JSON.stringify(userData));
-        
         alert('Schedule saved!');
     });
 });
