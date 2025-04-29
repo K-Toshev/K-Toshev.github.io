@@ -253,3 +253,75 @@ button:hover {
 #logoutButton:hover {
     background-color: #d4c29e;
 }
+
+/* Course Selection Styles */
+.course-selection {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.course-checkbox {
+    display: inline-block;
+    margin: 0.5rem 1rem 0.5rem 0;
+    padding: 0.5rem 1rem;
+    background: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.course-checkbox input {
+    margin-right: 0.5rem;
+}
+
+#findMatches {
+    display: block;
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+/* Enhanced Result Cards */
+.match-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+}
+
+.course-match {
+    color: #4b2e83; /* UW Purple */
+    font-weight: bold;
+}
+
+.schedule-match {
+    color: #b7a57a; /* UW Gold */
+    font-weight: bold;
+}
+
+.shared-courses {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Warning Messages */
+.no-courses-warning, .no-results {
+    background: #fff8e1;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.no-courses-warning a {
+    color: #4b2e83;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.no-courses-warning a:hover {
+    text-decoration: underline;
+}
