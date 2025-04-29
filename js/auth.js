@@ -1,35 +1,22 @@
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const netid = document.getElementById('netid').value;
-    const password = document.getElementById('password').value;
-    
-    // Store current user in sessionStorage
-    sessionStorage.setItem('currentUser', netid);
-    
-    // Redirect to home page
-    window.location.href = 'home.html';
-});
-
-// Add this function to auth.js
-function logout() {
-    // Clear session storage
-    sessionStorage.removeItem('currentUser');
-    // Redirect to login page
-    window.location.href = 'index.html';
+// Simulate UW NetID login (replace localStorage with Firebase Auth)
+function handleLogin(netId, password) {
+    // For demo, we'll use Firebase Email/Password Auth
+    auth.signInWithEmailAndPassword(`${netId}@uw.edu`, password)
+        .then((userCredential) => {
+            sessionStorage.setItem('currentUser', netId);
+            window.location.href = 'home.html';
+        })
+        .catch((error) => {
+            alert("Login failed. Using demo mode.");
+            // Fallback to localStorage if Firebase fails
+            sessionStorage.setItem('currentUser', netId);
+            window.location.href = 'home.html';
+        });
 }
 
-// Make sure this is at the bottom of auth.js
-document.addEventListener('DOMContentLoaded', function() {
-    // Display current user
-    const currentUser = sessionStorage.getItem('currentUser');
-    if (currentUser) {
-        document.getElementById('userWelcome').textContent = `Welcome, ${currentUser}!`;
-    }
-    
-    // Add click event listener (alternative to onclick in HTML)
-    const logoutButton = document.getElementById('logoutButton');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', logout);
-    }
+document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const netId = document.getElementById('netid').value;
+    const password = document.getElementById('password').value;
+    handleLogin(netId, password);
 });
