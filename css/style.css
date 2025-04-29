@@ -218,3 +218,50 @@ button:hover {
 #logoutButton:hover {
     background-color: #d4c29e;
 }
+
+/* Course List Styles */
+.course-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.course-list li {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-list li:last-child {
+    border-bottom: none;
+}
+
+.delete-course {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 0.5rem;
+}
+
+.delete-course:hover {
+    color: #cc0000;
+}
+
+#courseInput {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#newCourse {
+    flex-grow: 1;
+    padding: 0.5rem;
+}
