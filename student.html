@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Check if user is logged in
+        if (!sessionStorage.getItem('currentUser')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Student Profile</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="search.html">Back to Search</a>
+        </nav>
+    </header>
+    <main>
+        <div id="profileContainer"></div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const netid = urlParams.get('netid');
+
+            if (!netid) {
+                window.location.href = 'search.html';
+                return;
+            }
+
+            const userData = JSON.parse(localStorage.getItem(netid));
+            if (!userData) {
+                document.getElementById('profileContainer').innerHTML = '<p>Profile not found</p>';
+                return;
+            }
+
+            document.getElementById('profileContainer').innerHTML = `
+                <div class="public-profile">
+                    <h2>${userData.netid}</h2>
+                    
+                    <section>
+                        <h3>Courses</h3>
+                        <ul>
+                            ${userData.courses.map(c => `<li>${c}</li>`).join('')}
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h3>Availability</h3>
+                        <div id="publicSchedule"></div>
+                    </section>
+                </div>
+            `;
+
+            // Display schedule
+            if (userData.schedule) {
+                const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+                let scheduleHTML = '<div class="schedule-grid">';
+
+                days.forEach(day => {
+                    const hours = userData.schedule[day] || [];
+                    if (hours.length > 0) {
+                        scheduleHTML += `
+                            <div class="schedule-day">
+                                <h4>${day}</h4>
+                                <p>${hours.map(h =>
+                            `${h <= 12 ? h : h - 12}${h < 12 ? 'AM' : 'PM'}`).join(', ')}</p>
+                            </div>
+                        `;
+                    }
+                });
+
+                scheduleHTML += '</div>';
+                document.getElementById('publicSchedule').innerHTML = scheduleHTML;
+            }
+        });
+    </script>
+</body>
+
+</html>
