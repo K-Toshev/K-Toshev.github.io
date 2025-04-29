@@ -51,6 +51,12 @@ main {
     font-weight: bold;
 }
 
+#saveEmail {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
 .form-group input {
     width: 100%;
     padding: 0.75rem;
@@ -192,6 +198,17 @@ button:hover {
     border-radius: 4px;
 }
 
+.contact-info {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.contact-info p {
+    margin: 0;
+}
+
 /* Course List */
 .course-list {
     list-style: none;
@@ -315,7 +332,7 @@ button:hover {
     background: white;
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .calendar-legend {
@@ -420,7 +437,8 @@ button:hover {
 }
 
 /* Warning Messages */
-.no-courses-warning, .no-results {
+.no-courses-warning,
+.no-results {
     background: #fff8e1;
     padding: 1.5rem;
     border-radius: 8px;

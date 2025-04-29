@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!localStorage.getItem(netid)) {
             localStorage.setItem(netid, JSON.stringify({
                 netid: netid,
+                email: `${netid}@uw.edu`, // Default email
                 courses: [],
                 schedule: {}
             }));

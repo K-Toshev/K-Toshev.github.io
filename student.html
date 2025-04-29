@@ -14,7 +14,8 @@
         </nav>
     </header>
     <main>
-        <div id="profileContainer" class="public-profile"></div>
+        <div id="profileContainer" class="public-profile">
+        </div>
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -34,6 +35,10 @@
             
             document.getElementById('profileContainer').innerHTML = `
                 <h2>${userData.netid}</h2>
+                
+                <div class="contact-info">
+                    <p><strong>Email:</strong> <span id="studentEmail">${userData.email || 'Not provided'}</span></p>
+                </div>
                 
                 <section>
                     <h3>Courses</h3>
